@@ -32,6 +32,8 @@
 }
 .todo-list {
   height: 100%;
+  padding-right: 1.6rem;
+  overflow-y: auto;
   .todo {
     font-size: 2rem;
     padding: 2rem;
