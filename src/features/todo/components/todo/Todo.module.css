@@ -1,6 +1,49 @@
 .wrapper {
   width: 50vw;
+  padding: 2rem;
   aspect-ratio: 1/1;
   border-radius: 1.6rem;
   background-color: #9894ed;
+}
+.todo-box {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  height: 100%;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: #4640b0;
+  .input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.6rem;
+    color: #fff;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    &::placeholder {
+      color: #d8d8d8;
+    }
+    &:focus-visible {
+      outline: 0;
+      border-bottom: 2px solid #fff;
+    }
+  }
+}
+.todo-list {
+  height: 100%;
+  .todo {
+    font-size: 2rem;
+    padding: 2rem;
+    background-color: rgba(250, 235, 215, 1);
+    border-radius: 0.8rem;
+    transition: background-color 300ms ease-in-out;
+    &:not(:first-child) {
+      margin-top: 2rem;
+    }
+    &:hover {
+      background-color: rgba(250, 235, 215, 0.8);
+      cursor: pointer;
+    }
+  }
 }
