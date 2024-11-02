@@ -1,28 +1,54 @@
-import { useTodos } from '../../hooks';
-import styles from './Todo.module.css';
-
+import styles from "./Todo.module.css";
+import SunIcon from "../../../../assets/icons/light-mode.svg?react";
+import MoonIcon from "../../../../assets/icons/dark-mode.svg?react";
+import CheckIcon from "../../../../assets/icons/check.svg?react";
+import { useState } from "react";
+import { TODOS } from "../../constants";
 const Todo = () => {
-  const { textInput, handleChange, handleKeyDown, todos } = useTodos();
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
   return (
-    <section className={styles.wrapper}>
-      <div className={styles["todo-box"]}>
-        <input
-          type="text"
-          placeholder="add todo ..."
-          name=""
-          id=""
-          value={textInput}
-          className={styles.input}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
-        <ul className={styles["todo-list"]}>
-          {todos.map((todo) => (
-            <li key={todo.id} className={styles.todo}>
-              <p className={styles.content}>{todo.content}</p>
-            </li>
-          ))}
-        </ul>
+    <section className={styles["container"]}>
+      <div className={styles["box"]}>
+        <header className={styles["header"]}>
+          <h1 className={styles["title"]}>todo</h1>
+          <button
+            className={styles["button--toggle-theme"]}
+            onClick={toggleTheme}
+          >
+            {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+          </button>
+        </header>
+        <div className={styles["input-box"]}>
+          <input
+            className={styles["input-box__input"]}
+            type="text"
+            placeholder="Create a new todo..."
+          />
+        </div>
+        <div className={styles["list-box"]}>
+          <ul className={styles["list-box__list"]}>
+            {TODOS.map((todo) => (
+              <li className={styles["list-box__item"]} key={todo.id}>
+                <label
+                  htmlFor={`todo-${todo.id}`}
+                  className={styles["list-item__label"]}
+                />
+                <input
+                  type="checkbox"
+                  id={`todo-${todo.id}`}
+                  className={styles["list-item__checkbox"]}
+                />
+                <div className={styles["list-item__checkmark"]}>
+                  <CheckIcon />
+                </div>
+                <p className={styles["list-item__text"]}>{todo.content}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

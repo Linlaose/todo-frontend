@@ -1,10 +1,8 @@
-.wrapper {
+.main {
   min-height: 100dvh;
-  background: linear-gradient(
-    360deg,
-    rgba(37, 37, 37, 1) 0%,
-    rgba(99, 98, 98, 1) 100%
-  );
-  display: grid;
-  place-items: center;
+  background: #171823;
+}
+.banner {
+  width: 100%;
+  object-fit: cover;
 }
