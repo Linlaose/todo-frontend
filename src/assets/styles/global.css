@@ -2,7 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-
+@import "./typograph.css";
 html,
 body,
 div,
@@ -107,6 +107,7 @@ section {
 }
 body {
   line-height: 1;
+  font-family: "Josefin Sans", sans-serif;
 }
 ol,
 ul {
@@ -128,7 +129,7 @@ table {
   border-spacing: 0;
 }
 html {
-  font-size: 10px;
+  font-size: 62.5%;
 }
 * {
   box-sizing: border-box;
