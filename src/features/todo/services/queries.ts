@@ -3,6 +3,8 @@ import {
   DeleteTodoRes,
   GetTodosRes,
   ICreateTodoReq,
+  UpdateTodoReq,
+  UpdateTodoRes,
 } from "@/features/todo/types";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -54,4 +56,21 @@ export const deleteTodo = async ({ id }: { id: string }) => {
     console.error(error);
   }
   return;
+};
+export const updateTodo = async (reqBody: UpdateTodoReq) => {
+  const { id, ...requestColumns } = reqBody;
+  try {
+    const response = await fetch(`${API_URL}/todos/${id}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(requestColumns),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = (await response.json()) as UpdateTodoRes;
+    return data.data;
+  } catch (error) {
+    console.error(error);
+  }
 };

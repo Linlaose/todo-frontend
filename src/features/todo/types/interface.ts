@@ -20,3 +20,5 @@ export interface IDeleteTodoReq {
   id: string;
 }
 export type DeleteTodoRes = IGetApiSuccessBase<null>;
+export type UpdateTodoReq = Partial<TodoItem>;
+export type UpdateTodoRes = IGetApiSuccessBase<TodoItem>;

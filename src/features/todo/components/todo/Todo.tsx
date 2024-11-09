@@ -5,8 +5,9 @@ import CheckIcon from "@/assets/icons/check.svg?react";
 import { useState } from "react";
 import { createTodo, deleteTodo, getTodos } from "@/features/todo/services";
 import { useQuery } from "@/features/todo/hooks";
-import { TodoItem } from "@/features/todo/types";
+import { TodoItem, UpdateTodoReq } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
+import { updateTodo } from "@/features/todo/services/queries";
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [queryKey, setQueryKey] = useState([""]);
@@ -23,6 +24,10 @@ const Todo = () => {
   };
   const handleDelete = async (id: string) => {
     await deleteTodo({ id });
+    setQueryKey(["todos"]);
+  };
+  const handleUpdate = async (reqBody: UpdateTodoReq) => {
+    await updateTodo(reqBody);
     setQueryKey(["todos"]);
   };
   return (
@@ -58,7 +63,14 @@ const Todo = () => {
                 <input
                   type="checkbox"
                   id={`todo-${todo.id}`}
+                  checked={todo.is_done}
                   className={styles["list-item__checkbox"]}
+                  onChange={(e) => {
+                    void handleUpdate({
+                      id: todo.id,
+                      is_done: e.target.checked,
+                    });
+                  }}
                 />
                 <div className={styles["list-item__checkmark"]}>
                   <CheckIcon />
