@@ -10,3 +10,9 @@ export type TodoItem = {
   ended_at: null;
 };
 export type GetTodosRes = IGetApiSuccessBase<TodoItem[]>;
+export interface ICreateTodoReq {
+  title: string;
+}
+export type CreateTodoRes = IGetApiSuccessBase<
+  Pick<TodoItem, "id" | "title" | "description">
+>;

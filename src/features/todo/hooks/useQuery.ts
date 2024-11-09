@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 interface IProps<TData> {
   queryFn: () => Promise<TData | undefined>;
+  queryKey: string[];
 }
-const useQuery = <TData>({ queryFn }: IProps<TData>) => {
+const useQuery = <TData>({ queryFn, queryKey }: IProps<TData>) => {
   const [data, setData] = useState<TData>();
 
   useEffect(() => {
@@ -11,7 +12,7 @@ const useQuery = <TData>({ queryFn }: IProps<TData>) => {
       setData(res);
     };
     void fetchData();
-  }, [queryFn]);
+  }, [queryFn, queryKey]);
   return { data };
 };
 export default useQuery;

@@ -3,15 +3,23 @@ import SunIcon from "@/assets/icons/light-mode.svg?react";
 import MoonIcon from "@/assets/icons/dark-mode.svg?react";
 import CheckIcon from "@/assets/icons/check.svg?react";
 import { useState } from "react";
-import { getTodos } from "@/features/todo/services";
+import { createTodo, getTodos } from "@/features/todo/services";
 import { useQuery } from "@/features/todo/hooks";
 import { TodoItem } from "@/features/todo/types";
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [queryKey, setQueryKey] = useState([""]);
+  const [inputValue, setInputValue] = useState("");
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
-  const { data: TODOS } = useQuery<TodoItem[]>({ queryFn: getTodos });
+  const { data: TODOS } = useQuery<TodoItem[]>({ queryFn: getTodos, queryKey });
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    await createTodo({ title: inputValue });
+    setInputValue("");
+    setQueryKey(["todos"]);
+  };
   return (
     <section className={styles["container"]}>
       <div className={styles["box"]}>
@@ -29,6 +37,9 @@ const Todo = () => {
             className={styles["input-box__input"]}
             type="text"
             placeholder="Create a new todo..."
+            onKeyDown={(e) => void handleKeyDown(e)}
+            onChange={(e) => setInputValue(e.target.value)}
+            value={inputValue}
           />
         </div>
         <div className={styles["list-box"]}>
@@ -47,7 +58,7 @@ const Todo = () => {
                 <div className={styles["list-item__checkmark"]}>
                   <CheckIcon />
                 </div>
-                <p className={styles["list-item__text"]}>{todo.description}</p>
+                <p className={styles["list-item__text"]}>{todo.title}</p>
               </li>
             ))}
           </ul>
