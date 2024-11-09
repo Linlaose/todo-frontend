@@ -3,33 +3,24 @@ import SunIcon from "@/assets/icons/light-mode.svg?react";
 import MoonIcon from "@/assets/icons/dark-mode.svg?react";
 import CheckIcon from "@/assets/icons/check.svg?react";
 import { useState } from "react";
-import { createTodo, deleteTodo, getTodos } from "@/features/todo/services";
-import { useQuery } from "@/features/todo/hooks";
-import { TodoItem, UpdateTodoReq } from "@/features/todo/types";
+import { getTodos } from "@/features/todo/services";
+import { useQuery, useTodos } from "@/features/todo/hooks";
+import { TodoItem } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
-import { updateTodo } from "@/features/todo/services/queries";
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
-  const [queryKey, setQueryKey] = useState([""]);
-  const [inputValue, setInputValue] = useState("");
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
+  const {
+    queryKey,
+    inputValue,
+    handleKeyDown,
+    handleDelete,
+    handleUpdate,
+    handleChange,
+  } = useTodos();
   const { data: TODOS } = useQuery<TodoItem[]>({ queryFn: getTodos, queryKey });
-  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== "Enter") return;
-    await createTodo({ title: inputValue });
-    setInputValue("");
-    setQueryKey(["todos"]);
-  };
-  const handleDelete = async (id: string) => {
-    await deleteTodo({ id });
-    setQueryKey(["todos"]);
-  };
-  const handleUpdate = async (reqBody: UpdateTodoReq) => {
-    await updateTodo(reqBody);
-    setQueryKey(["todos"]);
-  };
   return (
     <section className={styles["container"]}>
       <div className={styles["box"]}>
@@ -48,7 +39,7 @@ const Todo = () => {
             type="text"
             placeholder="Create a new todo..."
             onKeyDown={(e) => void handleKeyDown(e)}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={handleChange}
             value={inputValue}
           />
         </div>
