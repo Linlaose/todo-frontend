@@ -3,12 +3,15 @@ import SunIcon from "../../../../assets/icons/light-mode.svg?react";
 import MoonIcon from "../../../../assets/icons/dark-mode.svg?react";
 import CheckIcon from "../../../../assets/icons/check.svg?react";
 import { useState } from "react";
-import { TODOS } from "../../constants";
+import { getTodos } from "../../services/queries";
+import { useQuery } from "../../hooks";
+import { TodoItem } from "../../types";
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
+  const { data: TODOS } = useQuery<TodoItem[]>({ queryFn: getTodos });
   return (
     <section className={styles["container"]}>
       <div className={styles["box"]}>
@@ -30,7 +33,7 @@ const Todo = () => {
         </div>
         <div className={styles["list-box"]}>
           <ul className={styles["list-box__list"]}>
-            {TODOS.map((todo) => (
+            {TODOS?.map((todo) => (
               <li className={styles["list-box__item"]} key={todo.id}>
                 <label
                   htmlFor={`todo-${todo.id}`}
@@ -44,7 +47,7 @@ const Todo = () => {
                 <div className={styles["list-item__checkmark"]}>
                   <CheckIcon />
                 </div>
-                <p className={styles["list-item__text"]}>{todo.content}</p>
+                <p className={styles["list-item__text"]}>{todo.description}</p>
               </li>
             ))}
           </ul>
