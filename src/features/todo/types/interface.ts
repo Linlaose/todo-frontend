@@ -1,4 +1,4 @@
-import { IGetApiSuccessBase } from "../../../types/api.type";
+import { IGetApiSuccessBase } from "@/types/api.type";
 
 export type TodoItem = {
   id: string;

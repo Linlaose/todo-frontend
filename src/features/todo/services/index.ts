@@ -1,3 +1,3 @@
-import * as queries from "./queries";
+import { getTodos } from "./queries";
 
-export { queries };
+export { getTodos };

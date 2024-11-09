@@ -1,11 +1,11 @@
 import styles from "./Todo.module.css";
-import SunIcon from "../../../../assets/icons/light-mode.svg?react";
-import MoonIcon from "../../../../assets/icons/dark-mode.svg?react";
-import CheckIcon from "../../../../assets/icons/check.svg?react";
+import SunIcon from "@/assets/icons/light-mode.svg?react";
+import MoonIcon from "@/assets/icons/dark-mode.svg?react";
+import CheckIcon from "@/assets/icons/check.svg?react";
 import { useState } from "react";
-import { getTodos } from "../../services/queries";
-import { useQuery } from "../../hooks";
-import { TodoItem } from "../../types";
+import { getTodos } from "@/features/todo/services";
+import { useQuery } from "@/features/todo/hooks";
+import { TodoItem } from "@/features/todo/types";
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const toggleTheme = () => {

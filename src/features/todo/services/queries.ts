@@ -1,4 +1,4 @@
-import { GetTodosRes } from "../types";
+import { GetTodosRes } from "@/features/todo/types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
