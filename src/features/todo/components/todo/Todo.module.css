@@ -31,6 +31,10 @@
   .list-box {
     margin-top: 2.4rem;
   }
+  .list-box__list {
+    max-height: 39rem;
+    overflow-y: auto;
+  }
   .list-box__item {
     position: relative;
     padding: 2rem 2.4rem;
