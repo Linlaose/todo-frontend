@@ -3,7 +3,7 @@ import SunIcon from "@/assets/icons/light-mode.svg?react";
 import MoonIcon from "@/assets/icons/dark-mode.svg?react";
 import CheckIcon from "@/assets/icons/check.svg?react";
 import { useState } from "react";
-import { createTodo, getTodos } from "@/features/todo/services";
+import { createTodo, deleteTodo, getTodos } from "@/features/todo/services";
 import { useQuery } from "@/features/todo/hooks";
 import { TodoItem } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
@@ -19,6 +19,10 @@ const Todo = () => {
     if (e.key !== "Enter") return;
     await createTodo({ title: inputValue });
     setInputValue("");
+    setQueryKey(["todos"]);
+  };
+  const handleDelete = async (id: string) => {
+    await deleteTodo({ id });
     setQueryKey(["todos"]);
   };
   return (
@@ -62,7 +66,7 @@ const Todo = () => {
                 <p className={styles["list-item__text"]}>{todo.title}</p>
                 <CrossIcon
                   className={styles["list-item__delete-button"]}
-                  onClick={() => console.log("delete")}
+                  onClick={() => void handleDelete(todo.id)}
                 />
               </li>
             ))}

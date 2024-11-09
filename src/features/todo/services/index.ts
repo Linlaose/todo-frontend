@@ -1,3 +1,3 @@
-import { createTodo, getTodos } from "./queries";
+import { createTodo, deleteTodo, getTodos } from "./queries";
 
-export { createTodo, getTodos };
+export { createTodo, deleteTodo, getTodos };

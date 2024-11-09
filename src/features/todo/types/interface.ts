@@ -16,3 +16,7 @@ export interface ICreateTodoReq {
 export type CreateTodoRes = IGetApiSuccessBase<
   Pick<TodoItem, "id" | "title" | "description">
 >;
+export interface IDeleteTodoReq {
+  id: string;
+}
+export type DeleteTodoRes = IGetApiSuccessBase<null>;
