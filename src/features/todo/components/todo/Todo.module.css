@@ -87,6 +87,18 @@
         opacity: 1;
       }
     }
+    .list-item__delete-button {
+      margin-left: auto;
+      z-index: 1;
+      transition: transform 0.3s ease, stroke 0.3s ease;
+      cursor: var(--cursor-pointer);
+      &:hover {
+        transform: rotate(90deg);
+        path {
+          stroke: #ffffff;
+        }
+      }
+    }
     .list-item__checkmark {
       --border-width: 1px;
       display: grid;

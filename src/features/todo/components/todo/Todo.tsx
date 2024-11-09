@@ -6,6 +6,7 @@ import { useState } from "react";
 import { createTodo, getTodos } from "@/features/todo/services";
 import { useQuery } from "@/features/todo/hooks";
 import { TodoItem } from "@/features/todo/types";
+import CrossIcon from "@/assets/icons/cross.svg?react";
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [queryKey, setQueryKey] = useState([""]);
@@ -59,6 +60,10 @@ const Todo = () => {
                   <CheckIcon />
                 </div>
                 <p className={styles["list-item__text"]}>{todo.title}</p>
+                <CrossIcon
+                  className={styles["list-item__delete-button"]}
+                  onClick={() => console.log("delete")}
+                />
               </li>
             ))}
           </ul>
