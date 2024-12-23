@@ -7,7 +7,7 @@ import { getTodos } from "@/features/todo/services";
 import { useQuery, useTodos } from "@/features/todo/hooks";
 import { TodoItem } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
-const query = { order_by: "created_at desc" };
+const query = { order_by: "created_at desc", limit: "5", page: "1" };
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const toggleTheme = () => {

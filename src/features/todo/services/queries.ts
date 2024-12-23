@@ -6,7 +6,7 @@ import {
   UpdateTodoReq,
   UpdateTodoRes,
 } from "@/features/todo/types";
-import queryString from "@/utils/helper";
+import queryString from "@/utils";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const headers = new Headers();
