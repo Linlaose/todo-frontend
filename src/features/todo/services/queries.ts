@@ -6,14 +6,17 @@ import {
   UpdateTodoReq,
   UpdateTodoRes,
 } from "@/features/todo/types";
+import queryString from "@/utils/helper";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
 
-export const getTodos = async () => {
+export const getTodos = async (query: Record<string, string>) => {
   try {
-    const response = await fetch(`${API_URL}/todos`);
+    const response = await fetch(
+      `${API_URL}/todos?${queryString.stringify(query)}`
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

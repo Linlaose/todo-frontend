@@ -2,11 +2,12 @@ import styles from "./Todo.module.css";
 import SunIcon from "@/assets/icons/light-mode.svg?react";
 import MoonIcon from "@/assets/icons/dark-mode.svg?react";
 import CheckIcon from "@/assets/icons/check.svg?react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { getTodos } from "@/features/todo/services";
 import { useQuery, useTodos } from "@/features/todo/hooks";
 import { TodoItem } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
+const query = { order_by: "created_at desc" };
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const toggleTheme = () => {
@@ -20,7 +21,11 @@ const Todo = () => {
     handleUpdate,
     handleChange,
   } = useTodos();
-  const { data: TODOS } = useQuery<TodoItem[]>({ queryFn: getTodos, queryKey });
+  const queryFn = useCallback(() => getTodos(query), []);
+  const { data: TODOS } = useQuery<TodoItem[]>({
+    queryFn,
+    queryKey,
+  });
   return (
     <section className={styles["container"]}>
       <div className={styles["box"]}>
