@@ -1,9 +1,8 @@
 import todoReducers from "@/features/todo/components/todo/reducers";
-import { FilterAction } from "@/features/todo/components/todo/reducers/filterReducer";
 import { QUERY } from "@/features/todo/constants";
 import { createTodo, deleteTodo } from "@/features/todo/services";
 import { updateTodo } from "@/features/todo/services/queries";
-import { UpdateTodoReq } from "@/features/todo/types";
+import { IHandleFilterProps, UpdateTodoReq } from "@/features/todo/types";
 import { useReducer, useState } from "react";
 
 const useTodos = () => {
@@ -26,8 +25,8 @@ const useTodos = () => {
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);
-  const handleFilter = (type: FilterAction["type"]) => {
-    dispatch({ type });
+  const handleFilter = ({ type, payload }: IHandleFilterProps) => {
+    dispatch({ type, payload });
   };
   return {
     queryKey,

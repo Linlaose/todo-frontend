@@ -1,13 +1,9 @@
 import { QUERY } from "@/features/todo/constants";
+import { FilterAction } from "@/features/todo/types";
 
-export type FilterAction =
-  | { type: "all" }
-  | { type: "completed" }
-  | { type: "pending" };
-export const filterReducer = (
-  state: Record<string, string | boolean>,
-  action: FilterAction
-) => {
+type FilterState = typeof QUERY & {};
+
+export const filterReducer = (state: FilterState, action: FilterAction) => {
   switch (action.type) {
     case "all":
       return QUERY;
@@ -15,6 +11,8 @@ export const filterReducer = (
       return { ...state, is_done: true };
     case "pending":
       return { ...state, is_done: false };
+    case "page":
+      return { ...state, page: String(action.payload) };
     default:
       return state;
   }

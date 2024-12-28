@@ -5,10 +5,9 @@ import CheckIcon from "@/assets/icons/check.svg?react";
 import { useCallback, useState } from "react";
 import { getTodos } from "@/features/todo/services";
 import { useQuery, useTodos } from "@/features/todo/hooks";
-import { GetTodosRes } from "@/features/todo/types";
+import { FilterAction, GetTodosRes } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
 import FilterBtn from "@/features/todo/components/todo/FilterBtn";
-import { FilterAction } from "@/features/todo/components/todo/reducers/filterReducer";
 const FilterTypes: FilterAction["type"][] = ["all", "completed", "pending"];
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
@@ -31,7 +30,8 @@ const Todo = () => {
     queryKey,
   });
   if (!data) return <>Loading...</>;
-  const { data: Todos } = data;
+  const { data: Todos, total } = data;
+  const pages = total / Number(filter.limit);
   return (
     <section className={styles["container"]}>
       <div className={styles["box"]}>
@@ -91,6 +91,14 @@ const Todo = () => {
             ))}
           </ul>
         </div>
+        {Array.from({ length: pages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handleFilter({ type: "page", payload: index + 1 })}
+          >
+            {index + 1}
+          </button>
+        ))}
       </div>
     </section>
   );

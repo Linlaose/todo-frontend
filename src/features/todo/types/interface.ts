@@ -25,3 +25,12 @@ export interface IDeleteTodoReq {
 export type DeleteTodoRes = IGetApiSuccessBase<null>;
 export type UpdateTodoReq = Partial<TodoItem>;
 export type UpdateTodoRes = IGetApiSuccessBase<TodoItem>;
+export type FilterAction =
+  | { type: "all" }
+  | { type: "completed" }
+  | { type: "pending" }
+  | { type: "page"; payload?: number };
+export interface IHandleFilterProps {
+  type: FilterAction["type"];
+  payload?: number;
+}
