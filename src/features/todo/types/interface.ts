@@ -1,4 +1,7 @@
-import { IGetApiSuccessBase } from "@/types/api.type";
+import {
+  IGetApiSuccessBase,
+  IGetApiSuccessBaseWithAmount,
+} from "@/types/api.type";
 
 export type TodoItem = {
   id: string;
@@ -9,7 +12,7 @@ export type TodoItem = {
   started_at: null;
   ended_at: null;
 };
-export type GetTodosRes = IGetApiSuccessBase<TodoItem[]>;
+export type GetTodosRes = IGetApiSuccessBaseWithAmount<TodoItem[]>;
 export interface ICreateTodoReq {
   title: string;
 }

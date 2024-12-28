@@ -21,7 +21,7 @@ export const getTodos = async (query: Record<string, string | boolean>) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = (await response.json()) as GetTodosRes;
-    return data.data;
+    return data;
   } catch (error) {
     console.error(error);
   }

@@ -5,7 +5,7 @@ import CheckIcon from "@/assets/icons/check.svg?react";
 import { useCallback, useState } from "react";
 import { getTodos } from "@/features/todo/services";
 import { useQuery, useTodos } from "@/features/todo/hooks";
-import { TodoItem } from "@/features/todo/types";
+import { GetTodosRes } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
 import FilterBtn from "@/features/todo/components/todo/FilterBtn";
 import { FilterAction } from "@/features/todo/components/todo/reducers/filterReducer";
@@ -26,10 +26,12 @@ const Todo = () => {
     filter,
   } = useTodos();
   const queryFn = useCallback(() => getTodos(filter), [filter]);
-  const { data: TODOS } = useQuery<TodoItem[]>({
+  const { data } = useQuery<GetTodosRes>({
     queryFn,
     queryKey,
   });
+  if (!data) return <>Loading...</>;
+  const { data: Todos } = data;
   return (
     <section className={styles["container"]}>
       <div className={styles["box"]}>
@@ -59,7 +61,7 @@ const Todo = () => {
         </div>
         <div className={styles["list-box"]}>
           <ul className={styles["list-box__list"]}>
-            {TODOS?.map((todo) => (
+            {Todos?.map((todo) => (
               <li className={styles["list-box__item"]} key={todo.id}>
                 <label
                   htmlFor={`todo-${todo.id}`}
