@@ -12,7 +12,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 const headers = new Headers();
 headers.append("Content-Type", "application/json");
 
-export const getTodos = async (query: Record<string, string>) => {
+export const getTodos = async (query: Record<string, string | boolean>) => {
   try {
     const response = await fetch(
       `${API_URL}/todos?${queryString.stringify(query)}`

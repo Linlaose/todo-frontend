@@ -6,7 +6,7 @@ export const parse = (query: string) => {
   });
   return result;
 };
-export const stringify = (query: Record<string, string>) => {
+export const stringify = (query: Record<string, string | boolean>) => {
   return Object.keys(query)
     .map((key) => {
       if (query[key] === null || query[key] === undefined) return "";
