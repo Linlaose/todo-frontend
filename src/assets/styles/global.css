@@ -134,3 +134,6 @@ html {
 * {
   box-sizing: border-box;
 }
+:root {
+  --cursor-pointer: url("../icons/cursor-pointer.svg"), pointer;
+}

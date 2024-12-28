@@ -5,7 +5,6 @@
   place-items: center;
 }
 .box {
-  --cursor-pointer: url("../../../../assets/icons/cursor-pointer.svg"), pointer;
   min-width: 54rem;
   .input-box {
     margin-top: 4.8rem;
