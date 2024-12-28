@@ -10,7 +10,6 @@ const useTodos = () => {
   const [queryKey, setQueryKey] = useState([""]);
   const [inputValue, setInputValue] = useState("");
   const [filter, dispatch] = useReducer(todoReducers.filterReducer, QUERY);
-  console.log("🖨️ ~ useTodos ~ filter:", filter);
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter") return;
     await createTodo({ title: inputValue });
@@ -28,7 +27,6 @@ const useTodos = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);
   const handleFilter = (type: FilterAction["type"]) => {
-    console.log("🖨️ ~ handleFilter ~ type:", type);
     dispatch({ type });
   };
   return {
