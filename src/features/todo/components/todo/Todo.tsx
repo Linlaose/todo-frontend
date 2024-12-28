@@ -7,7 +7,9 @@ import { getTodos } from "@/features/todo/services";
 import { useQuery, useTodos } from "@/features/todo/hooks";
 import { TodoItem } from "@/features/todo/types";
 import CrossIcon from "@/assets/icons/cross.svg?react";
-const query = { order_by: "created_at desc", limit: "5", page: "1" };
+import FilterBtn from "@/features/todo/components/todo/FilterBtn";
+import { FilterAction } from "@/features/todo/components/todo/reducers/filterReducer";
+const FilterTypes: FilterAction["type"][] = ["all", "completed", "pending"];
 const Todo = () => {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const toggleTheme = () => {
@@ -20,8 +22,10 @@ const Todo = () => {
     handleDelete,
     handleUpdate,
     handleChange,
+    handleFilter,
+    filter,
   } = useTodos();
-  const queryFn = useCallback(() => getTodos(query), []);
+  const queryFn = useCallback(() => getTodos(filter), [filter]);
   const { data: TODOS } = useQuery<TodoItem[]>({
     queryFn,
     queryKey,
@@ -38,6 +42,11 @@ const Todo = () => {
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
           </button>
         </header>
+        <div>
+          {FilterTypes.map((type) => (
+            <FilterBtn key={type} type={type} handleFilter={handleFilter} />
+          ))}
+        </div>
         <div className={styles["input-box"]}>
           <input
             className={styles["input-box__input"]}

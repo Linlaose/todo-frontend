@@ -1,11 +1,16 @@
+import todoReducers from "@/features/todo/components/todo/reducers";
+import { FilterAction } from "@/features/todo/components/todo/reducers/filterReducer";
+import { QUERY } from "@/features/todo/constants";
 import { createTodo, deleteTodo } from "@/features/todo/services";
 import { updateTodo } from "@/features/todo/services/queries";
 import { UpdateTodoReq } from "@/features/todo/types";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 const useTodos = () => {
   const [queryKey, setQueryKey] = useState([""]);
   const [inputValue, setInputValue] = useState("");
+  const [filter, dispatch] = useReducer(todoReducers.filterReducer, QUERY);
+  console.log("🖨️ ~ useTodos ~ filter:", filter);
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter") return;
     await createTodo({ title: inputValue });
@@ -22,6 +27,19 @@ const useTodos = () => {
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setInputValue(e.target.value);
-  return { queryKey, inputValue, handleKeyDown, handleDelete, handleUpdate, handleChange };
+  const handleFilter = (type: FilterAction["type"]) => {
+    console.log("🖨️ ~ handleFilter ~ type:", type);
+    dispatch({ type });
+  };
+  return {
+    queryKey,
+    inputValue,
+    handleKeyDown,
+    handleDelete,
+    handleUpdate,
+    handleChange,
+    handleFilter,
+    filter,
+  };
 };
 export default useTodos;

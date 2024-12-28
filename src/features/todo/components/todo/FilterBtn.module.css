@@ -1,0 +1,9 @@
+.btn {
+  padding: 0.3em 1em;
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  cursor: var(--cursor-pointer);
+  &:not(:first-child) {
+    margin-left: 1rem;
+  }
+}
